@@ -28,7 +28,8 @@ class _LoginPageState extends State<LoginPage> {
             left: 0,
             right: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.22, // Memperpendek tinggi lapisan biru tua
+              height: MediaQuery.of(context).size.height *
+                  0.22, // Memperpendek tinggi lapisan biru tua
               decoration: BoxDecoration(
                 color: AppColors.primary, // Warna biru utama
                 borderRadius: BorderRadius.only(
@@ -42,7 +43,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
           // Card yang ada di depan
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.17, // Posisi card lebih ke atas
+            top: MediaQuery.of(context).size.height *
+                0.17, // Posisi card lebih ke atas
             left: 16,
             right: 16,
             child: Card(
@@ -57,17 +59,21 @@ class _LoginPageState extends State<LoginPage> {
                     // Logo Login - Gambar (Diperbesar)
                     Image.asset(
                       'assets/images/logo_login.png', // Ganti dengan logo_login Anda
-                      width: 150, // Ukuran logo diperbesar
-                      height: 150, // Ukuran logo diperbesar
+                      width: 170, // Ukuran logo diperbesar
+                      height: 170, // Ukuran logo diperbesar
                     ),
                     SizedBox(height: 20),
                     // Input Field
                     TextField(
                       decoration: InputDecoration(
-                        labelText: "Username / Email",
-                        prefixIcon: Icon(Icons.person),
+                        labelText: "Email", // Ganti dengan hanya "Email"
+                        prefixIcon:
+                            Icon(Icons.email), // Ganti ikon menjadi ikon email
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                              color: Colors
+                                  .grey), // Ganti warna border jadi abu-abu
                         ),
                       ),
                     ),
@@ -92,6 +98,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                              color: Colors
+                                  .grey), // Ganti warna border jadi abu-abu
                         ),
                       ),
                     ),

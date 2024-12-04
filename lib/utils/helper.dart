@@ -6,7 +6,7 @@ class ApiHelper {
   static String _baseUrl = 'http://localhost:8000/api';  // URL base
   static String _apiKey = 'your_api_key_here';  // API key
 
-
+  // Function untuk memanggil API
   static Future<Map<String, dynamic>> callApi(String endpoint, {Map<String, String>? params}) async {
     try {
       // Menambahkan api_key pada params

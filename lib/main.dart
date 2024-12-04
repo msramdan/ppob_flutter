@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'PPOB Tecanusa',
+      title: 'PPOB TecaPay',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
