@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 import '../screens/forgot_page.dart';
 import '../services/auth_service.dart';
+import '../screens/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -52,7 +53,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Form( // Wrap the entire form in a Form widget
+                child: Form(
+                  // Wrap the entire form in a Form widget
                   key: _formKey, // Assign the form key
                   child: Column(
                     children: [
@@ -71,8 +73,8 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(color: Colors.grey),
                           ),
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 16),
                           labelStyle: TextStyle(fontSize: 14),
                         ),
                         validator: (value) {
@@ -105,8 +107,8 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(color: Colors.grey),
                           ),
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 16),
                           labelStyle: TextStyle(fontSize: 14),
                         ),
                         validator: (value) {
@@ -140,8 +142,10 @@ class _LoginPageState extends State<LoginPage> {
                               final response =
                                   await _authService.login(email, password);
                               if (response['status'] == true) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Login berhasil')),
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()),
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -152,7 +156,8 @@ class _LoginPageState extends State<LoginPage> {
                               }
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Terjadi kesalahan: $e')),
+                                SnackBar(
+                                    content: Text('Terjadi kesalahan: $e')),
                               );
                             }
                           }
