@@ -1,6 +1,9 @@
+// lib/screens/login_page.dart
+
 import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 import '../screens/forgot_page.dart';
+import '../services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,42 +12,38 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background, // Menggunakan background biru muda
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
-          // Lapisan biru muda di belakang card
           Positioned.fill(
             child: Container(
-              color: AppColors.background, // Warna biru muda
+              color: AppColors.background,
             ),
           ),
-          // Bagian atas dengan logo (lapisan biru tua) - Dipendekkan
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height *
-                  0.22, // Memperpendek tinggi lapisan biru tua
+              height: MediaQuery.of(context).size.height * 0.22,
               decoration: BoxDecoration(
-                color: AppColors.primary, // Warna biru utama
+                color: AppColors.primary,
                 borderRadius: BorderRadius.only(
-                  bottomLeft:
-                      Radius.circular(40), // Menambahkan radius pada kiri bawah
-                  bottomRight: Radius.circular(
-                      40), // Menambahkan radius pada kanan bawah
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40),
                 ),
               ),
             ),
           ),
-          // Card yang ada di depan
           Positioned(
-            top: MediaQuery.of(context).size.height *
-                0.17, // Posisi card lebih ke atas
+            top: MediaQuery.of(context).size.height * 0.17,
             left: 16,
             right: 16,
             child: Card(
@@ -56,30 +55,29 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    // Logo Login - Gambar (Diperbesar)
                     Image.asset(
-                      'assets/images/logo_login.png', // Ganti dengan logo_login Anda
-                      width: 170, // Ukuran logo diperbesar
-                      height: 170, // Ukuran logo diperbesar
+                      'assets/images/logo_login.png',
+                      width: 170,
+                      height: 170,
                     ),
                     SizedBox(height: 20),
-                    // Input Field
                     TextField(
+                      controller: _emailController,
                       decoration: InputDecoration(
-                        labelText: "Email", // Ganti dengan hanya "Email"
-                        prefixIcon:
-                            Icon(Icons.email), // Ganti ikon menjadi ikon email
+                        labelText: "Email",
+                        prefixIcon: Icon(Icons.email),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .grey), // Ganti warna border jadi abu-abu
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                        labelStyle: TextStyle(fontSize: 14),
                       ),
                     ),
                     SizedBox(height: 20),
-                    // Input Password dengan show/hide
                     TextField(
+                      controller: _passwordController,
                       obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
                         labelText: "Password",
@@ -98,10 +96,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .grey), // Ganti warna border jadi abu-abu
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                        labelStyle: TextStyle(fontSize: 14),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -119,48 +118,61 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    // Tombol Login
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        try {
+                          final email = _emailController.text;
+                          final password = _passwordController.text;
+                          final response =
+                              await _authService.login(email, password);
+                          if (response['status'] == true) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('berhasil Login')),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'Login gagal: ${response['message']}')),
+                            );
+                          }
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Error: $e')),
+                          );
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            AppColors.primary, // Menggunakan warna biru utama
+                        backgroundColor: AppColors.primary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
+                            borderRadius: BorderRadius.circular(15)),
                         padding:
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       ),
                       child: Text(
                         "Login",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color:
-                              Colors.white, // Mengubah warna teks menjadi putih
-                        ),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                     SizedBox(height: 20),
-                    // Footer Register
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Don't have an Account? "),
                         GestureDetector(
                           onTap: () {
-                            // Navigasi ke Register Page
+                            // Navigate to Register Page
                           },
                           child: Text(
                             "Register",
                             style: TextStyle(
-                              color: AppColors
-                                  .primary, // Menggunakan warna biru utama
+                              color: AppColors.primary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

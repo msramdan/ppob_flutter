@@ -64,9 +64,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       decoration: InputDecoration(
                         labelText: "Email Address", // Mengubah label input untuk email
                         prefixIcon: Icon(Icons.email),
-                        border: OutlineInputBorder(
+                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                              color: Colors
+                                  .grey),
                         ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 16),
+                        labelStyle: TextStyle(
+                            fontSize: 14),
                       ),
                     ),
                     SizedBox(height: 20),
