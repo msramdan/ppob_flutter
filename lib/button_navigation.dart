@@ -29,7 +29,7 @@ class ButtonNavigation extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.history),
-          label: 'Riwayat Transaksi',
+          label: 'Riwayat',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.plusCircle),

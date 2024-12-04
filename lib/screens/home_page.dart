@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background, // Background dari warna utama
-      appBar: Header(title: 'Home'),  // Gunakan widget Header
+      appBar: Header(),  // Gunakan widget Header tanpa parameter
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
